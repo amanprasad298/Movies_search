@@ -24,18 +24,24 @@ const Home = () => {
           <input type="text" className="form-control text-center" placeholder='Enter Movie Title' value={querry} onChange={(e)=> setQuerry(e.target.value)}></input>
         </form>
         <p className='text-danger m-3'>{error.show && error.msg}</p>
-        <div className="row m-5">
-          {movie.map((currentMovie)=>{
-            const {imdbID, Title, Poster} = currentMovie
-              return <div className='col-md-4 py-3 d-flex justify-content-center'>
-                <NavLink to={`movie/${imdbID}`} key={imdbID} className="card text-bg-dark" style={{width:'22rem'}}>
-                <img src={Poster} className="card-img-top fixed-size-image" alt="..."/>
-                  <div className="card-body">
-                    <h6 className="card-title text-center">{sliceTitle(Title)}</h6>
+        <div className='row m-5'>
+        {movie && movie.length > 0 ? (
+          movie.map((currentMovie) => {
+            const { imdbID, Title, Poster } = currentMovie;
+            return (
+              <div className='col-md-4 py-3 d-flex justify-content-center' key={imdbID}>
+                <NavLink to={`movie/${imdbID}`} className='card text-bg-dark' style={{ width: '22rem' }}>
+                  <img src={Poster} className='card-img-top fixed-size-image' alt='...' />
+                  <div className='card-body'>
+                    <h6 className='card-title text-center'>{sliceTitle(Title)}</h6>
                   </div>
                 </NavLink>
               </div>
-          })}
+            );
+          })
+        ) : (
+          <p className='text-danger'>No movies to display.</p>
+        )}
         </div>
     </div>
   )
